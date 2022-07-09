@@ -1,0 +1,18 @@
+# IDE
+.idea
+*.iml
+.ijwb
+.aswb
+# Gradle
+.gradle
+local.properties
+build
+
+# Bazel
+bazel-*
+.dazel_run
+user.bazelrc
+.dazelrc
+
+# macOS
+.DS_Store
