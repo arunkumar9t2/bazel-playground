@@ -18,7 +18,7 @@ kt_jvm_library(
 load("//tools/generated_sources_collector:generated_sources_collector.bzl", "generated_sources_collector")
 
 generated_sources_collector(
-    name = "collector",
+    name = "sources_collector",
     deps = [
         ":bin",
     ],
