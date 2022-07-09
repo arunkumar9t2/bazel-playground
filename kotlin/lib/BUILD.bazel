@@ -5,10 +5,11 @@ kt_jvm_library(
     srcs = glob([
         "src/main/kotlin/**/*.kt",
     ]),
-        visibility = ["//visibility:public"],
+    visibility = ["//visibility:public"],
     deps = [
         "//plugins:anvil_library",
         "//plugins:dagger",
+        "//plugins:scabbard_plugin",
         "@maven//:javax_inject_javax_inject",
     ],
 )

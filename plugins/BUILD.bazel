@@ -74,3 +74,19 @@ kt_compiler_plugin(
         "@maven//:com_squareup_anvil_compiler",
     ],
 )
+
+java_plugin(
+    name = "scabbard_processor",
+    generates_api = False,
+    processor_class = "dev.arunkumar.scabbard.plugin.ScabbardBindingGraphPlugin",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@maven//:dev_arunkumar_scabbard_processor",
+    ],
+)
+
+java_library(
+    name = "scabbard_plugin",
+    exported_plugins = [":scabbard_processor"],
+    visibility = ["//visibility:public"],
+)
