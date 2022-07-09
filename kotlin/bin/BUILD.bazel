@@ -10,6 +10,16 @@ kt_jvm_library(
         "//kotlin/lib",
         "//plugins:anvil_library",
         "//plugins:dagger",
+        "//plugins:scabbard_plugin",
         "@maven//:javax_inject_javax_inject",
+    ],
+)
+
+load("//tools/generated_sources_collector:generated_sources_collector.bzl", "generated_sources_collector")
+
+generated_sources_collector(
+    name = "collector",
+    deps = [
+        ":bin",
     ],
 )

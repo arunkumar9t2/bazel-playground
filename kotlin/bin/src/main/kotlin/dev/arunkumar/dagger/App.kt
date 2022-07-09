@@ -12,7 +12,5 @@ interface AnvilComponent {
 }
 
 fun main() {
-  DaggerAnvilComponent.factory().create().apply {
-    binding()
-  }
+  DaggerAnvilComponent.factory().create().binding()
 }

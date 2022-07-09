@@ -20,6 +20,7 @@ maven_install(
         "com.google.dagger:dagger-producers:2.41",
         "com.squareup.anvil:compiler:2.4.0",
         "com.squareup.anvil:annotations:2.4.0",
+        "dev.arunkumar:scabbard-processor:0.5.0",
         "javax.inject:javax.inject:1",
         "junit:junit:4.13",
     ],
@@ -33,6 +34,7 @@ maven_install(
     ],
     repositories = [
         "https://maven.google.com",
+        "https://jcenter.bintray.com/",
         "https://repo1.maven.org/maven2",
     ],
 )
