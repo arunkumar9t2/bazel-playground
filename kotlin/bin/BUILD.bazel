@@ -1,0 +1,15 @@
+load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+kt_jvm_library(
+    name = "bin",
+    srcs = glob([
+        "src/main/kotlin/**/*.kt",
+    ]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//kotlin/lib",
+        "//plugins:anvil_library",
+        "//plugins:dagger",
+        "@maven//:javax_inject_javax_inject",
+    ],
+)
