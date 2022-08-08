@@ -14,7 +14,7 @@ def _generate_manifest_xml(package_name):
     manifest_name = package_name.replace(".", "_") + "_manifest"
     manifest_file = "src/main/%s.xml" % manifest_name
     native.genrule(
-        name = package_name.replace(".", "_") + "_manifest",
+        name = manifest_name,
         outs = [manifest_file],
         cmd = """
 cat << EOF > AndroidManifest.xml
