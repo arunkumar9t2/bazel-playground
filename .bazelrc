@@ -1,1 +1,45 @@
 build --disk_cache=bazel-cache
+# Bazel
+build --experimental_google_legacy_api
+query --experimental_google_legacy_api
+
+# Env
+build --incompatible_strict_action_env
+
+# Resources
+build --local_cpu_resources=HOST_CPUS*.75
+
+# Databinding 
+build --experimental_android_databinding_v2
+build --android_databinding_use_v3_4_args
+build --android_databinding_use_androidx
+
+# Workers
+build --persistent_android_resource_processor
+build --experimental_persistent_multiplex_busybox_tools=true
+build --strategy=GenerateDataBindingBaseClasses=worker
+# Worker instances
+build --worker_max_instances=Javac=1
+build --worker_max_instances=KotlinCompile=1
+build --worker_max_instances=KotlinKapt=1
+build --worker_max_instances=AaptPackage=1
+build --worker_max_instances=AndroidResourceParser=1
+build --worker_max_instances=AndroidResourceCompiler=1
+build --worker_max_instances=AndroidResourceValidator=1
+build --worker_max_instances=RClassGenerator=1
+build --worker_max_instances=AndroidAapt2=1
+build --worker_max_instances=AndroidAssetMerger=1
+build --worker_max_instances=AndroidResourceMerger=1
+build --worker_max_instances=AndroidResourceLink=1
+build --worker_max_instances=AndroidCompiledResourceMerger=1
+build --worker_max_instances=Aapt2Optimize=1
+build --worker_max_instances=ManifestMerger=1
+build --worker_max_instances=GenerateDataBindingBaseClasses=1
+build --worker_max_instances=ProcessDatabinding=1
+
+
+# Dexing
+# build --define=android_incremental_dexing_tool=d8_dexbuilder
+# build --define=android_standalone_dexing_tool=d8_compat_dx
+# build --experimental_use_dex_splitter_for_incremental_dexing
+# build --nouse_workers_with_dexbuilder

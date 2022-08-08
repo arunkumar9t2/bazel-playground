@@ -1,0 +1,8 @@
+load(":gen_android_binary.bzl", "gen_android_binary")
+
+gen_android_binary(
+    name = "android_data_binding",
+    custom_package = "dev.arunkumar.bazel",
+    layouts = 5,
+    libraries = 30,
+)

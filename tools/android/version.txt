@@ -1,0 +1,3 @@
+bazel_android_tools_version not_set
+bazel_repo_commit not_set
+built_with_bazel_version not_set

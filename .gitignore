@@ -16,3 +16,6 @@ user.bazelrc
 
 # macOS
 .DS_Store
+
+# Ignore bazel binary
+tools/bazel
