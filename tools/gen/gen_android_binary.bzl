@@ -1,5 +1,5 @@
 """
-Generates a configurable android_binary target that uses Databinding
+Generates a configurable android_binary target
 """
 
 _DATABINDING_DEPS = [

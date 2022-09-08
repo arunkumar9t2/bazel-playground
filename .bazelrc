@@ -38,6 +38,8 @@ build --worker_max_instances=Aapt2Optimize=1
 build --worker_max_instances=ManifestMerger=1
 build --worker_max_instances=GenerateDataBindingBaseClasses=1
 build --worker_max_instances=ProcessDatabinding=1
+build --worker_max_instances=DexBuilder=1
+build --worker_max_instances=Desugar=1
 
 
 # Dexing
@@ -45,4 +47,7 @@ build --define=android_dexmerger_tool=d8_dexmerger
 build --define=android_incremental_dexing_tool=d8_dexbuilder
 build --define=android_standalone_dexing_tool=d8_compat_dx
 build --experimental_use_dex_splitter_for_incremental_dexing
-# build --nouse_workers_with_dexbuilder
+build --use_workers_with_dexbuilder
+# build --use_multiplex_workers_with_dexbuilder=true
+build --strategy=Desugar=worker
+build --modify_execution_info=Desugar=+supports-multiplex-workers
