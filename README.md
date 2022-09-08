@@ -8,4 +8,4 @@ Try locally
 3. Copy `bazel-bin/src/bazel` to this repo's `tools/bazel`
 4. Extract android tools to `tools/android`
    with `tar -xf bazel-bin/tools/android/runtime_deps/android_tools.tar.gz -C <path to this repo>/bazel-playground/tools/android`
-5. Use `bazelisk query //...` to find targets to build.
+5. Use `bazelisk query //...` to find targets to build and build with `bazel.sh`
