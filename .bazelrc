@@ -2,6 +2,8 @@ build --disk_cache=bazel-cache
 # Bazel
 build --experimental_google_legacy_api
 query --experimental_google_legacy_api
+build --profile=/tmp/profile.json
+build --execution_log_json_file=/tmp/exec.json
 
 # Env
 build --incompatible_strict_action_env
@@ -17,7 +19,7 @@ build --android_databinding_use_androidx
 # Workers
 build --persistent_android_resource_processor
 build --experimental_persistent_multiplex_busybox_tools=true
-build --strategy=GenerateDataBindingBaseClasses=worker
+#build --strategy=GenerateDataBindingBaseClasses=worker
 # Worker instances
 build --worker_max_instances=Javac=1
 build --worker_max_instances=KotlinCompile=1
@@ -39,7 +41,8 @@ build --worker_max_instances=ProcessDatabinding=1
 
 
 # Dexing
-# build --define=android_incremental_dexing_tool=d8_dexbuilder
-# build --define=android_standalone_dexing_tool=d8_compat_dx
-# build --experimental_use_dex_splitter_for_incremental_dexing
+build --define=android_dexmerger_tool=d8_dexmerger
+build --define=android_incremental_dexing_tool=d8_dexbuilder
+build --define=android_standalone_dexing_tool=d8_compat_dx
+build --experimental_use_dex_splitter_for_incremental_dexing
 # build --nouse_workers_with_dexbuilder
