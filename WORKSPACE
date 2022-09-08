@@ -43,23 +43,23 @@ maven_install(
     ],
 )
 
-RULES_KOTLIN_VERSION = "1.6.0"
+RULES_KOTLIN_VERSION = "1.7.0-RC-3"
 
-RULES_KOTLIN_SHA = "a57591404423a52bd6b18ebba7979e8cd2243534736c5c94d35c89718ea38f94"
+RULES_KOTLIN_SHA = "f033fa36f51073eae224f18428d9493966e67c27387728b6be2ebbdae43f140e"
 
-# http_archive(
-#     name = "io_bazel_rules_kotlin",
-#     sha256 = RULES_KOTLIN_SHA,
-#     urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v%s/rules_kotlin_release.tgz" % RULES_KOTLIN_VERSION],
-# )
+http_archive(
+    name = "io_bazel_rules_kotlin",
+    sha256 = RULES_KOTLIN_SHA,
+    urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v%s/rules_kotlin_release.tgz" % RULES_KOTLIN_VERSION],
+)
 
-# load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories")
+load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories")
 
-# kotlin_repositories()
+kotlin_repositories()
 
-# load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_register_toolchains")
+load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_register_toolchains")
 
-# kt_register_toolchains()
+kt_register_toolchains()
 
 android_sdk_repository(
     name = "androidsdk",
