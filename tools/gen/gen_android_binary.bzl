@@ -27,6 +27,23 @@ cp AndroidManifest.xml $@
     )
     return manifest_file
 
+_ASSETS_DIR = "src/main/assets"
+
+def _generate_assets(package_name):
+    asset_name = package_name.replace(".", "_") + "_asset"
+    asset_file = "%s/%s.xml" % (_ASSETS_DIR, asset_name)
+    native.genrule(
+        name = asset_name,
+        outs = [asset_file],
+        cmd = """
+cat << EOF > asset.txt
+package="{package_name}">
+EOF
+cp asset.txt $@
+            """.format(package_name = package_name),
+    )
+    return [asset_file]
+
 def _layout_files(package_name, count):
     layouts = []
     for layout_index in range(count):
@@ -80,6 +97,8 @@ def gen_android_binary(name, custom_package, libraries, layouts):
             name = "library_" + str(lib_index),
             custom_package = lib_package_name,
             enable_data_binding = True,
+            assets_dir = _ASSETS_DIR,
+            assets = _generate_assets(lib_package_name),
             manifest = _generate_manifest_xml(lib_package_name),
             resource_files = _layout_files(lib_package_name, no_of_layouts),
             deps = _DATABINDING_DEPS,
