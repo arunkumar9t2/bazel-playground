@@ -1,8 +1,9 @@
 load("@bazel_playground//tools/gen:gen_android_binary.bzl", "gen_android_binary")
 
 gen_android_binary(
-    name = "android_data_binding",
+    name = "android",
     custom_package = "dev.arunkumar.bazel",
+    enable_data_binding = False,
     layouts = 1,
-    libraries = 100,
+    libraries = 1,
 )

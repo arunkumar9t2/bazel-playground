@@ -44,17 +44,9 @@ cp asset.txt $@
     )
     return [asset_file]
 
-def _layout_files(package_name, count):
+def _layout_files(package_name, count, enable_data_binding):
     layouts = []
-    for layout_index in range(count):
-        layout_name = package_name.replace(".", "_") + "_layout_" + str(layout_index)
-        layout_file = "src/main/res/layout/%s.xml" % layout_name
-        native.genrule(
-            name = layout_name,
-            outs = [layout_file],
-            cmd = """
-cat << EOF > Layout.xml
-<?xml version="1.0" encoding="utf-8"?>
+    content = """<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,14 +63,63 @@ cat << EOF > Layout.xml
         <import type="android.view.View" />
     </data>
 </layout>
+    """ if enable_data_binding else """<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/mainActivityRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+</LinearLayout>
+    """
+    for layout_index in range(count):
+        layout_name = package_name.replace(".", "_") + "_layout_" + str(layout_index)
+        layout_file = "src/main/res/layout/%s.xml" % layout_name
+        native.genrule(
+            name = layout_name,
+            outs = [layout_file],
+            cmd = """
+cat << EOF > Layout.xml
+{content}
 EOF
 cp Layout.xml $@
-        """.format(layout_file = layout_file),
+        """.format(content = content),
         )
         layouts.append(layout_name)
     return layouts
 
-def gen_android_binary(name, custom_package, libraries, layouts):
+def _values_files(package_name, count):
+    values = []
+    for value_index in range(count):
+        value_name = package_name.replace(".", "_") + "_value_" + str(value_index)
+        value_file = "src/main/res/values/%s.xml" % value_name
+        native.genrule(
+            name = value_name,
+            outs = [value_file],
+            cmd = """
+cat << EOF > Values.xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="{value_name}">Test</string>
+</resources>
+EOF
+cp Values.xml $@
+        """.format(value_name = value_name),
+        )
+        values.append(value_name)
+    return values
+
+def gen_android_binary(
+        name,
+        custom_package,
+        enable_data_binding,
+        libraries,
+        layouts,
+        resources = 10):
     """Generate a android databinding target with lot of library modules
 
     Args:
@@ -88,6 +129,7 @@ def gen_android_binary(name, custom_package, libraries, layouts):
 
     no_of_libraries = libraries
     no_of_layouts = layouts
+    no_of_values = resources
 
     deps = []
     for lib_index in range(no_of_libraries):
@@ -96,11 +138,12 @@ def gen_android_binary(name, custom_package, libraries, layouts):
         native.android_library(
             name = "library_" + str(lib_index),
             custom_package = lib_package_name,
-            enable_data_binding = True,
+            enable_data_binding = enable_data_binding,
             assets_dir = _ASSETS_DIR,
             assets = _generate_assets(lib_package_name),
             manifest = _generate_manifest_xml(lib_package_name),
-            resource_files = _layout_files(lib_package_name, no_of_layouts),
+            resource_files = _layout_files(lib_package_name, no_of_layouts, enable_data_binding) +
+                             _values_files(lib_package_name, no_of_values),
             deps = _DATABINDING_DEPS,
         )
         deps.append(":" + lib_name)
@@ -108,7 +151,7 @@ def gen_android_binary(name, custom_package, libraries, layouts):
     native.android_binary(
         name = name,
         custom_package = package_name,
-        enable_data_binding = True,
+        enable_data_binding = enable_data_binding,
         manifest = _generate_manifest_xml(package_name),
         manifest_values = {
             "versionCode": "1",
