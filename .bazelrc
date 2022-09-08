@@ -1,3 +1,7 @@
+# Memory config
+startup --host_jvm_args="-Xmx10g"
+build --jvmopt="-Xmx10g"
+
 build --disk_cache=bazel-cache
 # Bazel
 build --experimental_google_legacy_api
@@ -20,6 +24,7 @@ build --android_databinding_use_androidx
 build --persistent_android_resource_processor
 build --experimental_persistent_multiplex_busybox_tools=true
 #build --strategy=GenerateDataBindingBaseClasses=worker
+build --strategy=ProcessDatabinding=worker
 # Worker instances
 build --worker_max_instances=Javac=1
 build --worker_max_instances=KotlinCompile=1
