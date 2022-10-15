@@ -56,3 +56,5 @@ build --use_workers_with_dexbuilder
 # build --use_multiplex_workers_with_dexbuilder=true
 build --strategy=Desugar=worker
 build --modify_execution_info=Desugar=+supports-multiplex-workers
+
+try-import local.bazelrc
