@@ -1,0 +1,53 @@
+load("@io_bazel_rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+# A -> B -> C
+#   \  D -> E
+
+kt_jvm_library(
+    name = "A",
+    srcs = glob([
+        "A.kt",
+    ]),
+    visibility = ["//visibility:public"],
+    deps = [
+        ":B",
+    ],
+)
+
+kt_jvm_library(
+    name = "B",
+    srcs = glob([
+        "B.kt",
+    ]),
+    visibility = ["//visibility:public"],
+    deps = [
+        ":C",
+    ],
+)
+
+kt_jvm_library(
+    name = "C",
+    srcs = glob([
+        "C.kt",
+    ]),
+    visibility = ["//visibility:public"],
+)
+
+kt_jvm_library(
+    name = "D",
+    srcs = glob([
+        "D.kt",
+    ]),
+    visibility = ["//visibility:public"],
+    deps = [
+        ":E",
+    ],
+)
+
+kt_jvm_library(
+    name = "E",
+    srcs = glob([
+        "E.kt",
+    ]),
+    visibility = ["//visibility:public"],
+)
