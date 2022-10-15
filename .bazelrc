@@ -6,8 +6,8 @@ build --disk_cache=bazel-cache
 # Bazel
 build --experimental_google_legacy_api
 query --experimental_google_legacy_api
-#build --profile=/tmp/profile.json
-#build --execution_log_json_file=/tmp/exec.json
+build --profile=/tmp/profile.json
+build --execution_log_json_file=/tmp/exec.json
 
 # Env
 build --incompatible_strict_action_env
