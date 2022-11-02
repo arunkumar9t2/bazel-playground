@@ -5,6 +5,6 @@ gen_android_binary(
     custom_package = "dev.arunkumar.bazel",
     enable_data_binding = False,
     layouts = 1,
-    libraries = 30,
-    resources = 20,
+    libraries = 3,
+    resources = 2,
 )

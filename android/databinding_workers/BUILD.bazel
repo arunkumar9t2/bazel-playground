@@ -4,6 +4,6 @@ gen_android_binary(
     name = "android_data_binding",
     custom_package = "dev.arunkumar.bazel",
     enable_data_binding = True,
-    layouts = 50,
+    layouts = 5,
     libraries = 2,
 )
